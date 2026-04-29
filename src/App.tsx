@@ -149,15 +149,13 @@ export default function App() {
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center pt-24 pb-12 overflow-hidden">
         {/* Background Image with Overlay */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="/backround.jpeg" 
-            alt="Hero Background" 
-            className="w-full h-full object-cover brightness-[1.1]"
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute inset-0 bg-black/10 backdrop-blur-[0.5px]"></div>
-        </div>
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ 
+            backgroundImage: "url('/backround.jpeg')",
+          }} 
+        />
+        <div className="absolute inset-0 bg-black/60"></div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
           <motion.div
