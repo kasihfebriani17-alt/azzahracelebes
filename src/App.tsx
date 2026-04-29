@@ -282,57 +282,68 @@ export default function App() {
               { 
                 src: "/produk/Amlop Panjang.jpeg", 
                 label: "Amplop Panjang",
+                price: "Rp 40.000",
                 desc: "Penyimpanan dokumen surat-menyurat profesional dengan material berkualitas untuk kebutuhan administrasi."
               },
               { 
                 src: "/produk/Bola Basket Molten.jpeg", 
                 label: "Bola Basket Molten",
+                price: "Rp 70.000",
                 desc: "Bola basket standar kompetisi internasional dengan grip yang mantap dan daya tahan tinggi."
               },
               { 
                 src: "/produk/Bola Volly Mikasa.jpeg", 
                 label: "Bola Voli Mikasa",
+                price: "Rp 65.000",
                 desc: "Bola voli premium dengan tekstur lembut dan pantulan akurat untuk performa maksimal."
               },
               { 
                 src: "/produk/kertas A4 sidu.jpeg", 
                 label: "Kertas A4 Sidu",
+                price: "Rp 75.000",
                 desc: "Kertas fotokopi putih bersih dan halus, ideal untuk dokumen kantor dan cetakan berkualitas."
               },
               { 
                 src: "/produk/Map bussiness.jpeg", 
                 label: "Map Business",
+                price: "Rp 38.000",
                 desc: "Map fungsional untuk mengorganisir dokumen penting dengan tampilan yang profesional."
               },
               { 
                 src: "/produk/Masker.jpeg", 
                 label: "Masker Kesehatan",
+                price: "Rp 30.000",
                 desc: "Masker dengan filter perlindungan tinggi untuk menjaga kesehatan di berbagai lingkungan."
               },
               { 
                 src: "/produk/Pulpen Standard.jpeg", 
                 label: "Pulpen Standard",
+                price: "Rp 38.000",
                 desc: "Pulpen dengan tinta yang lancar dan tahan lama, cocok untuk menulis dalam waktu lama."
               },
               { 
                 src: "/produk/Raket Bulutangkis.jpeg", 
                 label: "Raket Bulutangkis",
+                price: "Rp 125.000",
                 desc: "Raket ringan namun kokoh, dirancang untuk kontrol yang lebih baik saat bermain badminton."
               },
               { 
                 src: "/produk/Shuttlecock.jpeg", 
                 label: "Shuttlecock",
+                price: "Rp 48.000",
                 desc: "Shuttlecock dengan bulu berkualitas tinggi untuk stabilitas terbang dan ketahanan yang baik."
               },
               { 
                 src: "/produk/Timbangan Berat Badan.jpeg", 
                 label: "Timbangan Berat Badan",
+                price: "Rp 200.000",
                 desc: "Timbangan digital presisi tinggi dengan desain modern untuk memantau kesehatan keluarga."
               },
               { 
                 src: "/produk/Typex kenko.jpeg", 
                 label: "Type-X Kenko",
-                desc: "Pita koreksi instan yang praktis dan rapi untuk menutupi kesalahan penulisan dengan cepat."
+                price: "Rp 20.000",
+                desc: "Pita koreksi instan yang praktis and rapi untuk menutupi kesalahan penulisan dengan cepat."
               },
             ].map((product, idx) => (
               <motion.div
@@ -352,9 +363,9 @@ export default function App() {
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <div className="p-2 md:p-3">
-                  <span className="text-[5px] md:text-[7px] font-bold uppercase tracking-widest text-white/40 block mb-0.5 text-center">Catalog</span>
-                  <h4 className="text-[8px] md:text-[10px] font-bold text-[#FFCC99] uppercase tracking-tight group-hover:text-white transition-colors text-center leading-tight h-6 md:h-8 flex items-center justify-center">
+                <div className="p-2 md:p-3 text-center">
+                  <span className="text-[5px] md:text-[7px] font-bold uppercase tracking-[0.2em] text-[#FFCC99] block mb-0.5">{product.price}</span>
+                  <h4 className="text-[7px] md:text-[9px] font-bold text-white uppercase tracking-tight group-hover:text-[#FFCC99] transition-colors leading-tight h-6 md:h-8 flex items-center justify-center">
                     {product.label}
                   </h4>
                 </div>
@@ -764,8 +775,8 @@ export default function App() {
               </button>
             </div>
             <div className="p-6 md:p-8 text-center bg-gradient-to-b from-white/5 to-transparent">
-              <span className="text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-[#FFCC99]/40 block mb-3">Product Information</span>
-              <h3 className="text-2xl md:text-3xl font-serif font-bold text-[#FFCC99] mb-4 md:mb-6">{selectedProduct.label}</h3>
+              <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-[#FFCC99] block mb-2">{selectedProduct.price}</span>
+              <h3 className="text-2xl md:text-3xl font-serif font-bold text-white mb-4 md:mb-6">{selectedProduct.label}</h3>
               <p className="text-white/70 leading-relaxed text-sm md:text-base font-medium px-2">
                 {selectedProduct.desc}
               </p>
