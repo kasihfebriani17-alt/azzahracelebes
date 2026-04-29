@@ -129,11 +129,12 @@ const FeatureCard = ({ icon: Icon, title, description, index }: any) => (
 
 export default function App() {
   const images = [
-    "/projek/int 1.jpg",
-    "/projek/int 4.jpg",
-    "/projek/int 5.jpg"
+    "/projek/Pengerjaan Design Interior Ruang Rapat BBPVP.jpeg",
+    "/projek/Pengerjaan Interior Kantor Pelayanan BBPVP.jpeg",
+    "/projek/Pengerjaan Interiror kantor BBPVP.jpeg"
   ];
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
 
   return (
     <div className="min-h-screen bg-[#1a3d24] selection:bg-red-600 selection:text-white font-sans text-white relative">
@@ -278,17 +279,61 @@ export default function App() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {[
-              { src: "/produk/Amlop Panjang.jpeg", label: "Amplop Panjang" },
-              { src: "/produk/Bola Basket Molten.jpeg", label: "Bola Basket Molten" },
-              { src: "/produk/Bola Volly Mikasa.jpeg", label: "Bola Voli Mikasa" },
-              { src: "/produk/kertas A4 sidu.jpeg", label: "Kertas A4 Sidu" },
-              { src: "/produk/Map bussiness.jpeg", label: "Map Business" },
-              { src: "/produk/Masker.jpeg", label: "Masker Kesehatan" },
-              { src: "/produk/Pulpen Standard.jpeg", label: "Pulpen Standard" },
-              { src: "/produk/Raket Bulutangkis.jpeg", label: "Raket Bulutangkis" },
-              { src: "/produk/Shuttlecock.jpeg", label: "Shuttlecock" },
-              { src: "/produk/Timbangan Berat Badan.jpeg", label: "Timbangan Berat Badan" },
-              { src: "/produk/Typex kenko.jpeg", label: "Type-X Kenko" },
+              { 
+                src: "/produk/Amlop Panjang.jpeg", 
+                label: "Amplop Panjang",
+                desc: "Penyimpanan dokumen surat-menyurat profesional dengan material berkualitas untuk kebutuhan administrasi."
+              },
+              { 
+                src: "/produk/Bola Basket Molten.jpeg", 
+                label: "Bola Basket Molten",
+                desc: "Bola basket standar kompetisi internasional dengan grip yang mantap dan daya tahan tinggi."
+              },
+              { 
+                src: "/produk/Bola Volly Mikasa.jpeg", 
+                label: "Bola Voli Mikasa",
+                desc: "Bola voli premium dengan tekstur lembut dan pantulan akurat untuk performa maksimal."
+              },
+              { 
+                src: "/produk/kertas A4 sidu.jpeg", 
+                label: "Kertas A4 Sidu",
+                desc: "Kertas fotokopi putih bersih dan halus, ideal untuk dokumen kantor dan cetakan berkualitas."
+              },
+              { 
+                src: "/produk/Map bussiness.jpeg", 
+                label: "Map Business",
+                desc: "Map fungsional untuk mengorganisir dokumen penting dengan tampilan yang profesional."
+              },
+              { 
+                src: "/produk/Masker.jpeg", 
+                label: "Masker Kesehatan",
+                desc: "Masker dengan filter perlindungan tinggi untuk menjaga kesehatan di berbagai lingkungan."
+              },
+              { 
+                src: "/produk/Pulpen Standard.jpeg", 
+                label: "Pulpen Standard",
+                desc: "Pulpen dengan tinta yang lancar dan tahan lama, cocok untuk menulis dalam waktu lama."
+              },
+              { 
+                src: "/produk/Raket Bulutangkis.jpeg", 
+                label: "Raket Bulutangkis",
+                desc: "Raket ringan namun kokoh, dirancang untuk kontrol yang lebih baik saat bermain badminton."
+              },
+              { 
+                src: "/produk/Shuttlecock.jpeg", 
+                label: "Shuttlecock",
+                desc: "Shuttlecock dengan bulu berkualitas tinggi untuk stabilitas terbang dan ketahanan yang baik."
+              },
+              { 
+                src: "/produk/Timbangan Berat Badan.jpeg", 
+                label: "Timbangan Berat Badan",
+                desc: "Timbangan digital presisi tinggi dengan desain modern untuk memantau kesehatan keluarga."
+              },
+              { 
+                src: "/produk/Typex kenko.jpeg", 
+                label: "Type-X Kenko",
+                desc: "Pita koreksi instan yang praktis dan rapi untuk menutupi kesalahan penulisan dengan cepat."
+              },
             ].map((product, idx) => (
               <motion.div
                 key={idx}
@@ -296,7 +341,8 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.05 }}
-                className="group bg-[#224d30] rounded-2xl overflow-hidden border border-white/5 hover:border-[#FFCC99]/30 hover:shadow-xl transition-all duration-500"
+                onClick={() => setSelectedProduct(product)}
+                className="group bg-[#224d30] rounded-2xl overflow-hidden border border-white/5 hover:border-[#FFCC99]/30 hover:shadow-xl transition-all duration-500 cursor-pointer"
               >
                 <div className="aspect-square p-4 flex items-center justify-center bg-black/20">
                   <img 
@@ -366,8 +412,8 @@ export default function App() {
               onClick={() => setSelectedIndex(0)}
             >
               <img 
-                src="/projek/int 1.jpg" 
-                alt="Architecture Study" 
+                src="/projek/Pengerjaan Design Interior Ruang Rapat BBPVP.jpeg" 
+                alt="Pengerjaan Design Interior Ruang Rapat BBPVP" 
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
                 referrerPolicy="no-referrer" 
               />
@@ -384,8 +430,8 @@ export default function App() {
               onClick={() => setSelectedIndex(2)}
             >
               <img 
-                src="/projek/int 5.jpg" 
-                alt="Quality Control" 
+                src="/projek/Pengerjaan Interiror kantor BBPVP.jpeg" 
+                alt="Pengerjaan Interior Kantor BBPVP" 
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
                 referrerPolicy="no-referrer" 
               />
@@ -401,8 +447,8 @@ export default function App() {
               onClick={() => setSelectedIndex(1)}
             >
               <img 
-                src="/projek/int 4.jpg" 
-                alt="Modern Living" 
+                src="/projek/Pengerjaan Interior Kantor Pelayanan BBPVP.jpeg" 
+                alt="Pengerjaan Interior Kantor Pelayanan BBPVP" 
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
                 referrerPolicy="no-referrer" 
               />
@@ -654,7 +700,7 @@ export default function App() {
       </footer>
     </div>
     
-    {/* Zoom Modal */}
+    {/* Project Zoom Modal */}
     <AnimatePresence>
       {selectedIndex !== null && (
         <motion.div 
@@ -681,6 +727,57 @@ export default function App() {
             >
               <X className="w-10 h-10" />
             </button>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+
+    {/* Product Detail Modal */}
+    <AnimatePresence>
+      {selectedProduct && (
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center p-6"
+          onClick={() => setSelectedProduct(null)}
+        >
+          <motion.div 
+            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.95, opacity: 0, y: 20 }}
+            className="bg-[#224d30] max-w-lg w-full rounded-[2.5rem] overflow-hidden border border-[#FFCC99]/20 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="aspect-square p-12 bg-black/30 flex items-center justify-center relative">
+              <img 
+                src={selectedProduct.src} 
+                alt={selectedProduct.label}
+                className="max-w-full max-h-full object-contain"
+                referrerPolicy="no-referrer"
+              />
+              <button 
+                onClick={() => setSelectedProduct(null)}
+                className="absolute top-4 right-4 p-4 text-white/40 hover:text-[#FFCC99] transition-colors"
+              >
+                <X className="w-8 h-8" />
+              </button>
+            </div>
+            <div className="p-10 text-center">
+              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#FFCC99]/60 block mb-4">Product Details</span>
+              <h3 className="text-3xl font-serif font-bold text-[#FFCC99] mb-6 italic">{selectedProduct.label}</h3>
+              <p className="text-white/80 leading-relaxed text-lg font-medium">
+                {selectedProduct.desc}
+              </p>
+              <div className="mt-10">
+                <button 
+                  onClick={() => setSelectedProduct(null)}
+                  className="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-2xl font-bold uppercase tracking-widest text-sm transition-all"
+                >
+                  Close View
+                </button>
+              </div>
+            </div>
           </motion.div>
         </motion.div>
       )}
