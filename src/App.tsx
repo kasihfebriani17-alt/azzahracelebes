@@ -246,10 +246,10 @@ export default function App() {
                 <div className="w-16 h-16 rounded-full flex items-center justify-center mb-4 text-red-600 transition-all duration-500 group-hover:scale-110">
                    <item.icon className="w-8 h-8 opacity-90" />
                 </div>
-                <h4 className={`text-[17px] font-serif font-bold mb-2 leading-snug px-2 transition-colors ${item.title.toLowerCase().includes('konsultasi') ? 'text-red-600 group-hover:text-red-400' : 'text-[#1a3d24] group-hover:text-[#1a3d24]/80'}`}>
+                <h4 className="text-[17px] font-serif font-bold mb-2 leading-snug px-2 transition-colors text-black group-hover:text-black">
                   {item.title}
                 </h4>
-                <p className="text-[11px] text-[#1a3d24]/70 leading-relaxed max-w-[180px] mx-auto font-medium">
+                <p className="text-[11px] text-black/70 leading-relaxed max-w-[180px] mx-auto font-medium">
                   {item.desc}
                 </p>
               </motion.div>
@@ -576,32 +576,47 @@ export default function App() {
                 <h3 className="text-5xl md:text-6xl font-serif font-bold text-[#FFFDD0] italic">Get In Touch !</h3>
               </div>
 
-              <form className="space-y-8">
+              <form className="space-y-8" onSubmit={(e) => {
+                e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                const name = (form.elements.namedItem('name') as HTMLInputElement).value;
+                const email = (form.elements.namedItem('email') as HTMLInputElement).value;
+                const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value;
+                const subject = encodeURIComponent(`Pesan dari ${name} (${email})`);
+                const body = encodeURIComponent(message);
+                window.location.href = `mailto:azzahracelebes@gmail.com?subject=${subject}&body=${body}`;
+              }}>
                 <div className="relative group">
                   <label className="block text-[10px] uppercase font-bold text-white/30 mb-3 tracking-widest ml-1">Email address</label>
                   <input 
                     type="email" 
+                    name="email"
                     placeholder="Enter your email..."
                     className="w-full bg-[#1a3d24] border border-white/10 px-8 py-5 rounded-2xl focus:outline-none focus:ring-4 focus:ring-red-600/20 transition-all text-sm font-medium text-white shadow-sm"
+                    required
                   />
                 </div>
                 <div className="relative group">
                   <label className="block text-[10px] uppercase font-bold text-white/30 mb-3 tracking-widest ml-1">Full name</label>
                   <input 
                     type="text" 
+                    name="name"
                     placeholder="Enter your name..."
                     className="w-full bg-[#1a3d24] border border-white/10 px-8 py-5 rounded-2xl focus:outline-none focus:ring-4 focus:ring-red-600/20 transition-all text-sm font-medium text-white shadow-sm"
+                    required
                   />
                 </div>
                 <div className="relative group">
                   <label className="block text-[10px] uppercase font-bold text-white/30 mb-3 tracking-widest ml-1">Message</label>
                   <textarea 
                     rows={4}
+                    name="message"
                     placeholder="Describe your needs..."
                     className="w-full bg-[#1a3d24] border border-white/10 px-8 py-5 rounded-2xl focus:outline-none focus:ring-4 focus:ring-red-600/20 transition-all text-sm font-medium text-white shadow-sm resize-none"
+                    required
                   ></textarea>
                 </div>
-                <button className="w-full bg-red-600 hover:bg-red-700 text-[#FFFDD0] py-6 rounded-2xl font-bold uppercase tracking-[0.2em] text-sm transition-all shadow-xl shadow-red-600/20 hover:shadow-red-700/20 transform hover:-translate-y-1">
+                <button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-[#FFFDD0] py-6 rounded-2xl font-bold uppercase tracking-[0.2em] text-sm transition-all shadow-xl shadow-red-600/20 hover:shadow-red-700/20 transform hover:-translate-y-1">
                   Send Message
                 </button>
               </form>
