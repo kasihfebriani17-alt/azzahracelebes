@@ -81,30 +81,36 @@ const Navigation = () => {
       </div>
 
       {/* Mobile Menu */}
-      {isOpen && (
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="md:hidden bg-black/40 backdrop-blur-xl border-b border-white/10 px-6 py-8 flex flex-col gap-6"
-        >
-          {[
-            { label: "Home", href: "#" },
-            { label: "Our Products", href: "#products" },
-            { label: "Projects", href: "#projects" },
-            { label: "Reward", href: "#partners" },
-            { label: "Get In Touch", href: "#contact" }
-          ].map((item) => (
-            <a 
-              key={item.label} 
-              href={item.href} 
-              className="text-xl font-black text-[#FFFDD0] hover:text-red-500 transition-colors py-2"
-              onClick={() => setIsOpen(false)}
-            >
-              {item.label}
-            </a>
-          ))}
-        </motion.div>
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-black/40 backdrop-blur-xl border-b border-white/10 px-6 py-8 flex flex-col gap-6 overflow-hidden"
+          >
+            {[
+              { label: "Home", href: "#" },
+              { label: "Our Products", href: "#products" },
+              { label: "Projects", href: "#projects" },
+              { label: "Reward", href: "#partners" },
+              { label: "Get In Touch", href: "#contact" }
+            ].map((item, idx) => (
+              <motion.a 
+                key={item.label} 
+                href={item.href} 
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                className="text-xl font-black text-[#FFFDD0] hover:text-red-500 transition-colors py-2"
+                onClick={() => setIsOpen(false)}
+              >
+                {item.label}
+              </motion.a>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
@@ -158,21 +164,31 @@ export default function App() {
         <div className="absolute inset-0 bg-black/60"></div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl text-left"
-          >
-            <h1 className="text-6xl md:text-8xl font-bold leading-[1.1] mb-8 tracking-tight uppercase text-white">
+          <div className="max-w-4xl text-left">
+            <motion.h1 
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="text-6xl md:text-8xl font-bold leading-[1.1] mb-8 tracking-tight uppercase text-white"
+            >
               Pengadaan <br /> <span className="font-serif italic font-light lowercase text-white">Barang dan Jasa</span> Profesional
-            </h1>
-            <p className="text-sm md:text-lg mb-20 text-white leading-relaxed max-w-3xl font-medium italic">
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              className="text-sm md:text-lg mb-20 text-white leading-relaxed max-w-3xl font-medium italic"
+            >
               Mitra terpercaya dalam pengadaan barang dan jasa yang menghadirkan solusi berkualitas, harga kompetitif, dan layanan profesional untuk memenuhi setiap kebutuhan anda.
-            </p>
+            </motion.p>
 
             {/* Restored Category Info Widget - Sleek & Left-Aligned */}
-            <div className="hidden md:flex w-full max-w-4xl bg-black/40 backdrop-blur-md rounded-2xl p-6 items-center justify-between gap-2 border border-white/10 text-left shadow-2xl transition-transform hover:scale-[1.01] duration-500">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+              className="hidden md:flex w-full max-w-4xl bg-black/40 backdrop-blur-md rounded-2xl p-6 items-center justify-between gap-2 border border-white/10 text-left shadow-2xl transition-transform hover:scale-[1.01] duration-500"
+            >
               <div className="flex-1 border-r border-white/20 px-4">
                 <label className="block text-[8px] uppercase tracking-wider text-white/50 font-black mb-1.5">Kategori Jasa</label>
                 <p className="text-[12px] font-bold text-white leading-tight">Desain & Konstruksi Interior</p>
@@ -190,17 +206,19 @@ export default function App() {
                 <p className="text-[12px] font-bold italic text-white leading-tight">Proyek Strategis</p>
               </div>
               <div className="ml-2">
-                <a 
+                <motion.a 
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   href="https://wa.me/6287841780609?text=Halo%20Azzahra%20Celebes,%20saya%20ingin%20konsultasi%20mengenai%20pengadaan%20barang/jasa."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-[#C1211E] hover:bg-[#A01B18] text-white px-6 py-3 rounded-lg font-black text-[10px] tracking-widest uppercase transition-all shadow-lg shadow-black/40 inline-block"
                 >
                   Konsultasi
-                </a>
+                </motion.a>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -240,12 +258,17 @@ export default function App() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="flex flex-col items-center group bg-[#FFCC99] p-6 rounded-3xl border border-black/5"
+                whileHover={{ y: -10, scale: 1.02 }}
+                transition={{ delay: i * 0.1, duration: 0.3 }}
+                className="flex flex-col items-center group bg-[#FFCC99] p-6 rounded-3xl border border-black/5 shadow-lg"
               >
-                <div className="w-16 h-16 rounded-full flex items-center justify-center mb-4 text-red-600 transition-all duration-500 group-hover:scale-110">
+                <motion.div 
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6 }}
+                  className="w-16 h-16 rounded-full flex items-center justify-center mb-4 text-red-600 transition-all duration-500 group-hover:scale-110"
+                >
                    <item.icon className="w-8 h-8 opacity-90" />
-                </div>
+                </motion.div>
                 <h4 className="text-[17px] font-serif font-bold mb-2 leading-snug px-2 transition-colors text-black group-hover:text-black">
                   {item.title}
                 </h4>
@@ -354,15 +377,19 @@ export default function App() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
+                whileHover={{ y: -10, scale: 1.05, rotate: 1 }}
+                whileTap={{ scale: 0.95 }}
                 transition={{ delay: idx * 0.03 }}
                 onClick={() => setSelectedProduct(product)}
-                className="group bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-[#FFCC99]/40 hover:bg-white/10 transition-all duration-300 cursor-pointer relative"
+                className="group bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-[#FFCC99]/80 hover:bg-white/10 transition-colors duration-300 cursor-pointer relative shadow-lg hover:shadow-red-600/20"
               >
-                <div className="aspect-square p-2 md:p-4 flex items-center justify-center bg-black/20">
-                  <img 
+                <div className="aspect-square p-2 md:p-4 flex items-center justify-center bg-black/20 overflow-hidden">
+                  <motion.img 
                     src={product.src} 
                     alt={product.label}
-                    className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-500"
+                    className="max-w-full max-h-full object-contain"
+                    whileHover={{ scale: 1.15, rotate: 5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
                     referrerPolicy="no-referrer"
                   />
                 </div>
@@ -406,8 +433,9 @@ export default function App() {
             <motion.div 
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
+              whileHover={{ scale: 1.02, y: -5 }}
               viewport={{ once: true }}
-              className="bg-[#FFCC99] border border-black/5 rounded-[2rem] p-10 flex flex-col justify-center text-left relative group overflow-hidden"
+              className="bg-[#FFCC99] border border-black/5 rounded-[2rem] p-10 flex flex-col justify-center text-left relative group overflow-hidden shadow-xl"
             >
               <div className="absolute inset-0 bg-white/10 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
               <h3 className="text-2xl font-bold text-red-600 mb-4 relative z-10">Quality Control</h3>
@@ -473,12 +501,14 @@ export default function App() {
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ scale: 1.02, y: -5 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
-              className="bg-[#FFCC99] rounded-[2rem] p-10 flex flex-col justify-center text-left relative group overflow-hidden"
+              className="bg-[#FFCC99] rounded-[2rem] p-10 flex flex-col justify-center text-left relative group overflow-hidden shadow-xl"
             >
-              <h3 className="text-2xl font-bold text-red-600 mb-4 group-hover:text-red-700 transition-colors">Individual project</h3>
-              <p className="text-sm text-black/70 leading-relaxed font-medium">
+              <div className="absolute inset-0 bg-white/10 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+              <h3 className="text-2xl font-bold text-red-600 mb-4 group-hover:text-red-700 transition-colors relative z-10">Individual project</h3>
+              <p className="text-sm text-black/70 leading-relaxed font-medium relative z-10">
                 Setiap proyek dirancang khusus sesuai kebutuhan, gaya, dan preferensi Anda untuk hasil yang benar-benar personal.
               </p>
             </motion.div>
@@ -487,12 +517,14 @@ export default function App() {
             <motion.div 
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
+              whileHover={{ scale: 1.02, y: -5 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5 }}
-              className="bg-[#FFCC99] border border-black/5 rounded-[2rem] p-10 flex flex-col justify-center text-left relative group"
+              className="bg-[#FFCC99] border border-black/5 rounded-[2rem] p-10 flex flex-col justify-center text-left relative group overflow-hidden shadow-xl"
             >
-              <h3 className="text-2xl font-bold text-red-600 mb-4">Premium materials</h3>
-              <p className="text-sm text-black/70 leading-relaxed font-medium">
+              <div className="absolute inset-0 bg-white/10 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+              <h3 className="text-2xl font-bold text-red-600 mb-4 relative z-10">Premium materials</h3>
+              <p className="text-sm text-black/70 leading-relaxed font-medium relative z-10">
                 Kami menggunakan material terbaik untuk memastikan daya tahan, keindahan, dan kualitas jangka panjang.
               </p>
             </motion.div>
