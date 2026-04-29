@@ -277,7 +277,7 @@ export default function App() {
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 md:gap-4">
             {[
               { 
                 src: "/produk/Amlop Panjang.jpeg", 
@@ -337,24 +337,24 @@ export default function App() {
             ].map((product, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.05 }}
+                transition={{ delay: idx * 0.03 }}
                 onClick={() => setSelectedProduct(product)}
-                className="group bg-[#224d30] rounded-2xl overflow-hidden border border-white/5 hover:border-[#FFCC99]/30 hover:shadow-xl transition-all duration-500 cursor-pointer"
+                className="group bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-[#FFCC99]/40 hover:bg-white/10 transition-all duration-300 cursor-pointer relative"
               >
-                <div className="aspect-square p-4 flex items-center justify-center bg-black/20">
+                <div className="aspect-square p-2 md:p-4 flex items-center justify-center bg-black/20">
                   <img 
                     src={product.src} 
                     alt={product.label}
-                    className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-700"
+                    className="max-w-full max-h-full object-contain group-hover:scale-110 transition-transform duration-500"
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <div className="p-3">
-                  <span className="text-[7px] font-bold uppercase tracking-widest text-white/40 block mb-1 text-center">Katalog Barang</span>
-                  <h4 className="text-[10px] font-serif font-bold text-red-600 uppercase tracking-tight group-hover:text-red-400 transition-colors text-center leading-tight h-8 flex items-center justify-center">
+                <div className="p-2 md:p-3">
+                  <span className="text-[5px] md:text-[7px] font-bold uppercase tracking-widest text-white/40 block mb-0.5 text-center">Catalog</span>
+                  <h4 className="text-[8px] md:text-[10px] font-bold text-[#FFCC99] uppercase tracking-tight group-hover:text-white transition-colors text-center leading-tight h-6 md:h-8 flex items-center justify-center">
                     {product.label}
                   </h4>
                 </div>
@@ -739,42 +739,42 @@ export default function App() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center p-6"
+          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center p-4 md:p-6"
           onClick={() => setSelectedProduct(null)}
         >
           <motion.div 
-            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+            initial={{ scale: 0.9, opacity: 0, y: 40 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.95, opacity: 0, y: 20 }}
-            className="bg-[#224d30] max-w-lg w-full rounded-[2.5rem] overflow-hidden border border-[#FFCC99]/20 shadow-2xl"
+            exit={{ scale: 0.9, opacity: 0, y: 40 }}
+            className="bg-[#1a3d24] max-w-md w-full rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="aspect-square p-12 bg-black/30 flex items-center justify-center relative">
+            <div className="aspect-square p-8 md:p-12 bg-white/5 flex items-center justify-center relative">
               <img 
                 src={selectedProduct.src} 
                 alt={selectedProduct.label}
-                className="max-w-full max-h-full object-contain"
+                className="max-w-full max-h-full object-contain drop-shadow-2xl"
                 referrerPolicy="no-referrer"
               />
               <button 
                 onClick={() => setSelectedProduct(null)}
-                className="absolute top-4 right-4 p-4 text-white/40 hover:text-[#FFCC99] transition-colors"
+                className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white/60 hover:text-white transition-all"
               >
-                <X className="w-8 h-8" />
+                <X className="w-5 h-5 md:w-6 md:h-6" />
               </button>
             </div>
-            <div className="p-10 text-center">
-              <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#FFCC99]/60 block mb-4">Product Details</span>
-              <h3 className="text-3xl font-serif font-bold text-[#FFCC99] mb-6 italic">{selectedProduct.label}</h3>
-              <p className="text-white/80 leading-relaxed text-lg font-medium">
+            <div className="p-6 md:p-8 text-center bg-gradient-to-b from-white/5 to-transparent">
+              <span className="text-[8px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-[#FFCC99]/40 block mb-3">Product Information</span>
+              <h3 className="text-2xl md:text-3xl font-serif font-bold text-[#FFCC99] mb-4 md:mb-6">{selectedProduct.label}</h3>
+              <p className="text-white/70 leading-relaxed text-sm md:text-base font-medium px-2">
                 {selectedProduct.desc}
               </p>
-              <div className="mt-10">
+              <div className="mt-8 md:mt-10">
                 <button 
                   onClick={() => setSelectedProduct(null)}
-                  className="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-2xl font-bold uppercase tracking-widest text-sm transition-all"
+                  className="w-full bg-[#FFCC99] hover:bg-[#ffe0b3] text-[#1a3d24] py-4 rounded-xl font-bold uppercase tracking-widest text-[10px] md:text-xs transition-all shadow-lg"
                 >
-                  Close View
+                  Return to Catalog
                 </button>
               </div>
             </div>
