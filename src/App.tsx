@@ -192,9 +192,14 @@ export default function App() {
                 <p className="text-[12px] font-bold italic text-white leading-tight">Proyek Strategis</p>
               </div>
               <div className="ml-2">
-                <button className="bg-[#C1211E] hover:bg-[#A01B18] text-white px-6 py-3 rounded-lg font-black text-[10px] tracking-widest uppercase transition-all shadow-lg shadow-black/40">
+                <a 
+                  href="https://wa.me/6287841780609?text=Halo%20Azzahra%20Celebes,%20saya%20ingin%20konsultasi%20mengenai%20pengadaan%20barang/jasa."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#C1211E] hover:bg-[#A01B18] text-white px-6 py-3 rounded-lg font-black text-[10px] tracking-widest uppercase transition-all shadow-lg shadow-black/40 inline-block"
+                >
                   Konsultasi
-                </button>
+                </a>
               </div>
             </div>
           </motion.div>
