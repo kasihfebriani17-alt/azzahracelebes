@@ -303,7 +303,7 @@ export default function App() {
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {[
               { 
                 src: "/produk/Amlop Panjang.jpeg", 
@@ -374,40 +374,50 @@ export default function App() {
             ].map((product, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -8 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ delay: idx * 0.05, duration: 0.4 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ delay: idx * 0.06, duration: 0.5 }}
                 onClick={() => setSelectedProduct(product)}
-                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-red-800/30 transition-all duration-400 cursor-pointer flex flex-col border-2 border-transparent hover:border-[#FFCC99]"
+                className="group cursor-pointer rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-black/40 transition-all duration-500 flex flex-col border border-white/10 hover:border-[#FFCC99]/60"
               >
-                {/* Image Area */}
-                <div className="aspect-square flex items-center justify-center bg-white p-6 overflow-hidden relative">
-                  <motion.img 
-                    src={product.src} 
+                {/* Image Area — clean white background, image blends */}
+                <div className="relative bg-white flex items-center justify-center p-8 h-64 overflow-hidden">
+                  <motion.img
+                    src={product.src}
                     alt={product.label}
-                    className="max-w-full max-h-full object-contain mix-blend-multiply"
-                    whileHover={{ scale: 1.12 }}
-                    transition={{ type: "spring", stiffness: 250 }}
+                    className="max-h-full max-w-full object-contain mix-blend-multiply"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 220 }}
                     referrerPolicy="no-referrer"
                   />
+                  {/* Subtle top gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/0 to-white/20 pointer-events-none" />
                 </div>
+
                 {/* Info Area */}
-                <div className="bg-[#1a3d24] px-4 py-4 flex flex-col gap-2 border-t-4 border-[#FFCC99]">
-                  {/* Price Badge */}
-                  <div className="inline-flex self-start items-center gap-1.5 bg-red-600 text-white text-sm md:text-base font-black px-3 py-1 rounded-full shadow">
-                    <span>{product.price}</span>
+                <div className="bg-[#12301c] px-6 py-5 flex flex-col gap-3 border-t-[5px] border-[#FFCC99] flex-1">
+                  {/* Price — large & bold */}
+                  <div className="flex items-center gap-2">
+                    <span className="bg-red-600 text-white text-lg md:text-xl font-black px-4 py-1.5 rounded-xl shadow-lg shadow-red-900/40 tracking-wide">
+                      {product.price}
+                    </span>
                   </div>
-                  {/* Product Name */}
-                  <h4 className="text-base md:text-lg font-extrabold text-white group-hover:text-[#FFCC99] transition-colors leading-tight tracking-tight">
+                  {/* Product Name — very large */}
+                  <h4 className="text-xl md:text-2xl font-black text-white group-hover:text-[#FFCC99] transition-colors duration-300 leading-snug">
                     {product.label}
                   </h4>
-                  {/* CTA hint */}
-                  <span className="text-[11px] md:text-xs text-white/50 font-medium group-hover:text-white/80 transition-colors">
-                    Klik untuk detail →
-                  </span>
+                  {/* Description */}
+                  <p className="text-sm text-white/60 leading-relaxed group-hover:text-white/80 transition-colors duration-300 line-clamp-2">
+                    {product.desc}
+                  </p>
+                  {/* CTA Button */}
+                  <div className="mt-1 flex items-center gap-2 text-[#FFCC99] font-bold text-sm group-hover:gap-3 transition-all duration-300">
+                    <span>Lihat Detail</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </div>
                 </div>
               </motion.div>
             ))}
