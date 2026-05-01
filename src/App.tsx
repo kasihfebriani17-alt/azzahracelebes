@@ -303,7 +303,7 @@ export default function App() {
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 md:gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
             {[
               { 
                 src: "/produk/Amlop Panjang.jpeg", 
@@ -374,30 +374,40 @@ export default function App() {
             ].map((product, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -10, scale: 1.05, rotate: 1 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ delay: idx * 0.03 }}
+                whileHover={{ y: -8 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ delay: idx * 0.05, duration: 0.4 }}
                 onClick={() => setSelectedProduct(product)}
-                className="group bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-[#FFCC99]/80 hover:bg-white/10 transition-colors duration-300 cursor-pointer relative shadow-lg hover:shadow-red-600/20 flex flex-col"
+                className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-red-800/30 transition-all duration-400 cursor-pointer flex flex-col border-2 border-transparent hover:border-[#FFCC99]"
               >
-                <div className="aspect-square p-4 flex items-center justify-center bg-white overflow-hidden relative">
+                {/* Image Area */}
+                <div className="aspect-square flex items-center justify-center bg-white p-6 overflow-hidden relative">
                   <motion.img 
                     src={product.src} 
                     alt={product.label}
                     className="max-w-full max-h-full object-contain mix-blend-multiply"
-                    whileHover={{ scale: 1.15, rotate: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    whileHover={{ scale: 1.12 }}
+                    transition={{ type: "spring", stiffness: 250 }}
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <div className="p-3 md:p-4 text-center flex-1 flex flex-col justify-center">
-                  <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#FFCC99] block mb-1.5">{product.price}</span>
-                  <h4 className="text-xs md:text-sm font-bold text-white uppercase tracking-tight group-hover:text-[#FFCC99] transition-colors leading-snug min-h-[2.5rem] flex items-center justify-center">
+                {/* Info Area */}
+                <div className="bg-[#1a3d24] px-4 py-4 flex flex-col gap-2 border-t-4 border-[#FFCC99]">
+                  {/* Price Badge */}
+                  <div className="inline-flex self-start items-center gap-1.5 bg-red-600 text-white text-sm md:text-base font-black px-3 py-1 rounded-full shadow">
+                    <span>{product.price}</span>
+                  </div>
+                  {/* Product Name */}
+                  <h4 className="text-base md:text-lg font-extrabold text-white group-hover:text-[#FFCC99] transition-colors leading-tight tracking-tight">
                     {product.label}
                   </h4>
+                  {/* CTA hint */}
+                  <span className="text-[11px] md:text-xs text-white/50 font-medium group-hover:text-white/80 transition-colors">
+                    Klik untuk detail →
+                  </span>
                 </div>
               </motion.div>
             ))}
