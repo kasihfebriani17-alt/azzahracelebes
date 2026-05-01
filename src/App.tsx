@@ -342,7 +342,7 @@ export default function App() {
                 desc: "Masker dengan filter perlindungan tinggi untuk menjaga kesehatan di berbagai lingkungan."
               },
               { 
-                src: "/produk/Pulpen Standard.jpeg", 
+                src: "/produk/Pulpen Standard.png", 
                 label: "Pulpen Standard",
                 price: "Rp 38.000",
                 desc: "Pulpen dengan tinta yang lancar dan tahan lama, cocok untuk menulis dalam waktu lama."
@@ -354,7 +354,7 @@ export default function App() {
                 desc: "Raket ringan namun kokoh, dirancang untuk kontrol yang lebih baik saat bermain badminton."
               },
               { 
-                src: "/produk/Shuttlecock.jpeg", 
+                src: "/produk/Shuttlecock.png", 
                 label: "Shuttlecock",
                 price: "Rp 48.000",
                 desc: "Shuttlecock dengan bulu berkualitas tinggi untuk stabilitas terbang dan ketahanan yang baik."
