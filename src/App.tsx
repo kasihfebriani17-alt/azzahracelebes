@@ -636,7 +636,7 @@ export default function App() {
                 const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value;
                 const subject = encodeURIComponent(`Pesan dari ${name} (${email})`);
                 const body = encodeURIComponent(message);
-                window.location.href = `mailto:azzahracelebes@gmail.com?subject=${subject}&body=${body}`;
+                window.open(`https://mail.google.com/mail/?view=cm&to=azzahracelebes@gmail.com&su=${subject}&body=${body}`, '_blank');
               }}>
                 <div className="relative group">
                   <label className="block text-[10px] uppercase font-bold text-white/30 mb-3 tracking-widest ml-1">Email address</label>
@@ -708,8 +708,8 @@ export default function App() {
                     <p className="text-[13px] text-white/70 group-hover/contact:text-white tracking-tight leading-none mt-1 transition-colors">(+62) 819 0891 0445</p>
                   </div>
                 </a>
-                {/* Email — tap to email */}
-                <a href="mailto:azzahracelebes@gmail.com" className="flex items-center gap-4 group/contact hover:opacity-90 transition-opacity">
+                {/* Email — tap to open Gmail */}
+                <a href="https://mail.google.com/mail/?view=cm&to=azzahracelebes@gmail.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group/contact hover:opacity-90 transition-opacity">
                   <div className="w-12 h-12 bg-white/5 group-hover/contact:bg-red-600/20 rounded-full flex items-center justify-center shrink-0 transition-colors">
                     <Mail className="w-5 h-5 text-[#FFCC99]" />
                   </div>
