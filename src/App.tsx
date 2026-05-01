@@ -733,30 +733,8 @@ export default function App() {
               {/* Separator Dashed Line */}
               <div className="w-full border-t border-dashed border-[#FFFDD0]/30 mb-12"></div>
 
-              {/* Bottom Row: Links */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                  <h4 className="text-[16px] font-bold mb-8 text-[#FFFDD0]">Navigation</h4>
-                  <ul className="space-y-4">
-                    {["Home", "Our Products", "Projects", "Reward", "Get In Touch"].map((item) => (
-                      <li key={item}>
-                        <a href={`#${item.toLowerCase().replace(/ /g, '-')}`} className="text-white/60 hover:text-red-500 transition-colors text-[13px] font-medium">
-                          {item}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="text-[16px] font-bold mb-8 text-[#FFFDD0]">Quick Link</h4>
-                  <ul className="space-y-4 text-white/60 text-[13px] font-medium">
-                    <li><a href="#" className="hover:text-red-500 transition-colors">Contact Us</a></li>
-                    <li><a href="#" className="hover:text-red-500 transition-colors">FAQs</a></li>
-                    <li><a href="#" className="hover:text-red-500 transition-colors">Blog</a></li>
-                    <li><a href="#" className="hover:text-red-500 transition-colors">Gallery</a></li>
-                    <li><a href="#" className="hover:text-red-500 transition-colors">Pricing</a></li>
-                  </ul>
-                </div>
+              {/* Bottom Row: Work Hours Only */}
+              <div className="grid grid-cols-1 gap-8">
                 <div>
                   <h4 className="text-[16px] font-bold mb-8 text-[#FFFDD0]">Work Hours</h4>
                   <ul className="space-y-4 text-white/60 text-[13px] font-medium mb-6">
