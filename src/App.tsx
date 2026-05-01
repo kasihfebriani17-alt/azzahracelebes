@@ -381,21 +381,21 @@ export default function App() {
                 whileTap={{ scale: 0.95 }}
                 transition={{ delay: idx * 0.03 }}
                 onClick={() => setSelectedProduct(product)}
-                className="group bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-[#FFCC99]/80 hover:bg-white/10 transition-colors duration-300 cursor-pointer relative shadow-lg hover:shadow-red-600/20"
+                className="group bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden border border-white/10 hover:border-[#FFCC99]/80 hover:bg-white/10 transition-colors duration-300 cursor-pointer relative shadow-lg hover:shadow-red-600/20 flex flex-col"
               >
-                <div className="aspect-square p-2 md:p-4 flex items-center justify-center bg-black/20 overflow-hidden">
+                <div className="aspect-square p-4 flex items-center justify-center bg-white overflow-hidden relative">
                   <motion.img 
                     src={product.src} 
                     alt={product.label}
-                    className="max-w-full max-h-full object-contain"
+                    className="max-w-full max-h-full object-contain mix-blend-multiply"
                     whileHover={{ scale: 1.15, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 300 }}
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <div className="p-2 md:p-3 text-center">
-                  <span className="text-[5px] md:text-[7px] font-bold uppercase tracking-[0.2em] text-[#FFCC99] block mb-0.5">{product.price}</span>
-                  <h4 className="text-[7px] md:text-[9px] font-bold text-white uppercase tracking-tight group-hover:text-[#FFCC99] transition-colors leading-tight h-6 md:h-8 flex items-center justify-center">
+                <div className="p-3 md:p-4 text-center flex-1 flex flex-col justify-center">
+                  <span className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#FFCC99] block mb-1.5">{product.price}</span>
+                  <h4 className="text-xs md:text-sm font-bold text-white uppercase tracking-tight group-hover:text-[#FFCC99] transition-colors leading-snug min-h-[2.5rem] flex items-center justify-center">
                     {product.label}
                   </h4>
                 </div>
@@ -810,16 +810,16 @@ export default function App() {
             className="bg-[#1a3d24] max-w-md w-full rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="aspect-square p-8 md:p-12 bg-white/5 flex items-center justify-center relative">
+            <div className="aspect-square p-8 md:p-12 bg-white flex items-center justify-center relative">
               <img 
                 src={selectedProduct.src} 
                 alt={selectedProduct.label}
-                className="max-w-full max-h-full object-contain drop-shadow-2xl"
+                className="max-w-full max-h-full object-contain mix-blend-multiply drop-shadow-sm"
                 referrerPolicy="no-referrer"
               />
               <button 
                 onClick={() => setSelectedProduct(null)}
-                className="absolute top-4 right-4 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white/60 hover:text-white transition-all"
+                className="absolute top-4 right-4 p-2 bg-black/10 hover:bg-black/20 rounded-full text-black/60 hover:text-black transition-all"
               >
                 <X className="w-5 h-5 md:w-6 md:h-6" />
               </button>
