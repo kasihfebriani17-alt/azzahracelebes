@@ -610,7 +610,7 @@ export default function App() {
                 <h2 className="text-2xl font-bold text-[#FFFDD0] mb-8">Location :</h2>
                 <div className="w-full h-[350px] bg-neutral-900 rounded-[3rem] overflow-hidden border border-white/10 shadow-inner grayscale hover:grayscale-0 transition-all duration-1000 group">
                   <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15894.13745281488!2d119.4187063!3d-5.1783856!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dbee2964e52ec77%3A0xe5a363ac46237ed7!2sSulawesi%20Interior!5e0!3m2!1sid!2sid!4v1714125000000!5m2!1sid!2sid" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d991.5793765636507!2d119.43117426963!3d-5.1397!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dbefd4b00000001%3A0x1!2sJl.%20Tupai%20No.38%2C%20Makassar%2C%20Sulawesi%20Selatan!5e0!3m2!1sid!2sid!4v1746000000000!5m2!1sid!2sid"
                     className="w-full h-full border-0"
                     allowFullScreen
                     loading="lazy"
@@ -698,33 +698,36 @@ export default function App() {
             <div className="lg:col-span-8">
               {/* Top Row: Contact Info */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center shrink-0 text-red-600 font-bold">
+                {/* Phone — tap to call */}
+                <a href="tel:+6281908910445" className="flex items-center gap-4 group/contact hover:opacity-90 transition-opacity">
+                  <div className="w-12 h-12 bg-white/5 group-hover/contact:bg-red-600/20 rounded-full flex items-center justify-center shrink-0 transition-colors">
                     <Phone className="w-5 h-5 text-[#FFCC99]" />
                   </div>
                   <div>
                     <p className="text-[14px] font-bold text-red-600">Phone</p>
-                    <p className="text-[13px] text-white/70 tracking-tight leading-none mt-1">(+62) 819 0891 0445</p>
+                    <p className="text-[13px] text-white/70 group-hover/contact:text-white tracking-tight leading-none mt-1 transition-colors">(+62) 819 0891 0445</p>
                   </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center shrink-0 text-red-600 font-bold">
+                </a>
+                {/* Email — tap to email */}
+                <a href="mailto:azzahracelebes@gmail.com" className="flex items-center gap-4 group/contact hover:opacity-90 transition-opacity">
+                  <div className="w-12 h-12 bg-white/5 group-hover/contact:bg-red-600/20 rounded-full flex items-center justify-center shrink-0 transition-colors">
                     <Mail className="w-5 h-5 text-[#FFCC99]" />
                   </div>
                   <div>
                     <p className="text-[14px] font-bold text-red-600">Email</p>
-                    <p className="text-[13px] text-white/70 tracking-tight leading-none mt-1">azzahracelebes@gmail.com</p>
+                    <p className="text-[13px] text-white/70 group-hover/contact:text-white tracking-tight leading-none mt-1 transition-colors">azzahracelebes@gmail.com</p>
                   </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center shrink-0 text-red-600 font-bold">
+                </a>
+                {/* Address — tap to open Google Maps */}
+                <a href="https://www.google.com/maps/search/Jl.+Tupai+No.38+Makassar+Sulawesi+Selatan" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 group/contact hover:opacity-90 transition-opacity">
+                  <div className="w-12 h-12 bg-white/5 group-hover/contact:bg-red-600/20 rounded-full flex items-center justify-center shrink-0 transition-colors">
                     <MapPin className="w-5 h-5 text-[#FFCC99]" />
                   </div>
                   <div>
                     <p className="text-[14px] font-bold text-red-600">Address</p>
-                    <p className="text-[13px] text-white/70 tracking-tight leading-none mt-1">Makassar & Gowa, Sulawesi</p>
+                    <p className="text-[13px] text-white/70 group-hover/contact:text-white tracking-tight leading-none mt-1 transition-colors">Jl. Tupai No. 38, Makassar</p>
                   </div>
-                </div>
+                </a>
               </div>
 
               {/* Separator Dashed Line */}
