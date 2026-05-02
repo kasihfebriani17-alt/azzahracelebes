@@ -90,8 +90,21 @@ const Navigation = () => {
           {/* Mobile Toggle Button */}
           <button 
             type="button"
-            className="md:hidden relative z-50 flex items-center justify-center w-12 h-12 text-white rounded-xl active:bg-white/10 transition-colors"
-            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden relative z-50 flex items-center justify-center w-12 h-12 text-white rounded-xl active:bg-white/10 transition-colors cursor-pointer select-none"
+            onClick={(e) => {
+              e.preventDefault();
+              setIsOpen(!isOpen);
+            }}
+            onTouchEnd={(e) => {
+              e.preventDefault();
+              setIsOpen(!isOpen);
+            }}
+            style={{ 
+              WebkitTapHighlightColor: 'transparent', 
+              touchAction: 'manipulation',
+              WebkitUserSelect: 'none',
+              userSelect: 'none'
+            }}
             aria-label={isOpen ? "Tutup menu" : "Buka menu"}
             aria-expanded={isOpen}
           >
