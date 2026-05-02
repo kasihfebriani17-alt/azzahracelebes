@@ -139,13 +139,18 @@ const Navigation = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden fixed inset-0 z-40 bg-[#0a110d] flex flex-col pt-28 px-6 pb-8 overflow-y-auto"
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="md:hidden fixed inset-0 z-40 bg-[#050a07] flex flex-col pt-24 px-6 pb-8 overflow-y-auto"
           >
-            <div className="flex flex-col gap-2">
+            {/* Header for visual confirmation of update */}
+            <div className="mb-8 border-b border-white/5 pb-4">
+              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-red-500">Navigation Menu</p>
+            </div>
+
+            <div className="flex flex-col gap-1">
               {[
                 { label: "Home", href: "#" },
                 { label: "Our Products", href: "#products" },
@@ -162,7 +167,7 @@ const Navigation = () => {
                 >
                   <a 
                     href={item.href} 
-                    className="text-2xl font-black text-[#FFFDD0] active:text-red-500 transition-colors py-4 border-b border-white/5 flex items-center justify-between group block w-full cursor-pointer"
+                    className="text-3xl font-bold text-[#FFFDD0] active:text-red-500 transition-colors py-5 border-b border-white/5 flex items-center justify-between group block w-full cursor-pointer"
                     onClick={(e) => {
                       e.preventDefault();
                       setIsOpen(false);
@@ -176,11 +181,21 @@ const Navigation = () => {
                             window.scrollTo({ top: y, behavior: "smooth" });
                           }
                         }
-                      }, 50);
+                      }, 300); // 300ms delay to ensure menu unmounts first
+                    }}
+                    onTouchStart={(e) => {
+                      // Visual feedback on touch
+                      e.currentTarget.style.color = "#ef4444";
+                    }}
+                    onTouchEnd={(e) => {
+                      e.currentTarget.style.color = "";
                     }}
                   >
-                    {item.label}
-                    <ChevronRight className="w-5 h-5 text-white/20 group-active:text-red-500" />
+                    <span className="flex items-center gap-4">
+                      <span className="text-[10px] font-black text-red-600/40">0{idx + 1}</span>
+                      {item.label}
+                    </span>
+                    <ChevronRight className="w-5 h-5 text-white/10 group-active:text-red-500" />
                   </a>
                 </motion.div>
               ))}
