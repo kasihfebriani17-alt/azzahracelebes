@@ -45,22 +45,11 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    setIsOpen(false);
-    
-    // Allow state update to process before scrolling
+  const handleNavClick = () => {
+    // Let the browser perform its native hash jump first, 
+    // then close the menu so it doesn't cancel the jump by unmounting
     setTimeout(() => {
-      if (href === "#") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        const el = document.querySelector(href);
-        if (el) {
-          // Adjust scroll position to account for fixed header
-          const y = el.getBoundingClientRect().top + window.scrollY - 80;
-          window.scrollTo({ top: y, behavior: "smooth" });
-        }
-      }
+      setIsOpen(false);
     }, 150);
   };
 
@@ -88,7 +77,7 @@ const Navigation = () => {
                 href={item.href} 
                 onClick={(e) => {
                   if (item.href.startsWith("#")) {
-                    handleNavClick(e as any, item.href);
+                    handleNavClick();
                   }
                 }}
                 className="text-[12px] font-black uppercase tracking-[0.2em] text-white hover:text-red-500 transition-all duration-300"
@@ -157,8 +146,8 @@ const Navigation = () => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.05 + 0.1 }}
-                  className="text-2xl font-black text-[#FFFDD0] active:text-red-500 transition-colors py-4 border-b border-white/5 flex items-center justify-between group"
-                  onClick={(e) => handleNavClick(e as any, item.href)}
+                  className="text-2xl font-black text-[#FFFDD0] active:text-red-500 transition-colors py-4 border-b border-white/5 flex items-center justify-between group block w-full"
+                  onClick={handleNavClick}
                 >
                   {item.label}
                   <ChevronRight className="w-5 h-5 text-white/20 group-active:text-red-500" />
