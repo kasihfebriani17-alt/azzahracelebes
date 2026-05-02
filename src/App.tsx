@@ -35,7 +35,6 @@ import { useState, useEffect } from "react";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -45,6 +44,36 @@ const Navigation = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Prevent body scroll when mobile menu is open (iOS fix)
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [isOpen]);
+
+  const handleToggle = (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsOpen((prev) => !prev);
+  };
+
+  const handleNavClick = (e: React.MouseEvent | React.TouchEvent, href: string) => {
+    e.stopPropagation();
+    setIsOpen(false);
+    // Smooth scroll to section
+    if (href !== "#") {
+      const el = document.querySelector(href);
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 100);
+      }
+    } else {
+      setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 100);
+    }
+  };
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-black/60 backdrop-blur-lg border-b border-white/5 py-2" : "bg-gradient-to-b from-black/60 to-transparent py-4"}`}>
@@ -74,41 +103,112 @@ const Navigation = () => {
           ))}
         </div>
 
-        {/* Mobile Toggle */}
-        <button className="md:hidden text-white" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        {/* Mobile Toggle Button - iOS-safe */}
+        <button 
+          type="button"
+          className="md:hidden flex items-center justify-center w-12 h-12 text-white rounded-xl cursor-pointer select-none"
+          onTouchEnd={handleToggle}
+          onClick={handleToggle}
+          style={{ 
+            WebkitTapHighlightColor: 'transparent', 
+            touchAction: 'manipulation',
+            WebkitUserSelect: 'none',
+            userSelect: 'none'
+          }}
+          aria-label={isOpen ? "Tutup menu" : "Buka menu"}
+          aria-expanded={isOpen}
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            {isOpen ? (
+              <motion.span
+                key="close"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <X className="w-6 h-6" />
+              </motion.span>
+            ) : (
+              <motion.span
+                key="open"
+                initial={{ rotate: 90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: -90, opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                <Menu className="w-6 h-6" />
+              </motion.span>
+            )}
+          </AnimatePresence>
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Full overlay for iOS */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-black/40 backdrop-blur-xl border-b border-white/10 px-6 py-8 flex flex-col gap-6 overflow-hidden"
-          >
-            {[
-              { label: "Home", href: "#" },
-              { label: "Our Products", href: "#products" },
-              { label: "Projects", href: "#projects" },
-              { label: "Reward", href: "#partners" },
-              { label: "Get In Touch", href: "#contact" }
-            ].map((item, idx) => (
-              <motion.a 
-                key={item.label} 
-                href={item.href} 
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                className="text-xl font-black text-[#FFFDD0] hover:text-red-500 transition-colors py-2"
+          <>
+            {/* Backdrop */}
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="md:hidden fixed inset-0 top-[72px] bg-black/60 backdrop-blur-sm z-40"
+              onClick={() => setIsOpen(false)}
+            />
+            {/* Menu Panel */}
+            <motion.div 
+              key="menu"
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="md:hidden absolute top-full left-0 right-0 z-50 border-b border-white/10 px-6 py-6 flex flex-col shadow-2xl"
+              style={{ backgroundColor: 'rgb(10, 28, 14)' }}
+            >
+              {[
+                { label: "Home", href: "#" },
+                { label: "Our Products", href: "#products" },
+                { label: "Projects", href: "#projects" },
+                { label: "Reward", href: "#partners" },
+                { label: "Get In Touch", href: "#contact" }
+              ].map((item, idx) => (
+                <motion.a 
+                  key={item.label} 
+                  href={item.href} 
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: idx * 0.06, duration: 0.2 }}
+                  className="text-xl font-black text-[#FFFDD0] active:text-red-400 transition-colors py-4 border-b border-white/10 last:border-0 flex items-center gap-3"
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  onTouchEnd={(e) => handleNavClick(e, item.href)}
+                  style={{ 
+                    WebkitTapHighlightColor: 'transparent', 
+                    touchAction: 'manipulation'
+                  }}
+                >
+                  <span className="text-red-500 text-sm font-black">0{idx + 1}</span>
+                  {item.label}
+                </motion.a>
+              ))}
+
+              {/* CTA in mobile menu */}
+              <motion.a
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35 }}
+                href="https://wa.me/6287841780609?text=Halo%20Azzahra%20Celebes,%20saya%20ingin%20konsultasi."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 w-full bg-red-600 text-white text-center py-4 rounded-2xl font-black text-sm uppercase tracking-widest"
                 onClick={() => setIsOpen(false)}
+                style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
               >
-                {item.label}
+                Konsultasi Sekarang
               </motion.a>
-            ))}
-          </motion.div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>
