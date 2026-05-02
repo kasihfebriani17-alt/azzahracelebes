@@ -140,18 +140,36 @@ const Navigation = () => {
                 { label: "Reward", href: "#partners" },
                 { label: "Get In Touch", href: "#contact" }
               ].map((item, idx) => (
-                <motion.a 
-                  key={item.label} 
-                  href={item.href} 
+                <motion.div 
+                  key={item.label}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: idx * 0.05 + 0.1 }}
-                  className="text-2xl font-black text-[#FFFDD0] active:text-red-500 transition-colors py-4 border-b border-white/5 flex items-center justify-between group block w-full"
-                  onClick={handleNavClick}
+                  className="w-full"
                 >
-                  {item.label}
-                  <ChevronRight className="w-5 h-5 text-white/20 group-active:text-red-500" />
-                </motion.a>
+                  <a 
+                    href={item.href} 
+                    className="text-2xl font-black text-[#FFFDD0] active:text-red-500 transition-colors py-4 border-b border-white/5 flex items-center justify-between group block w-full cursor-pointer"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsOpen(false);
+                      setTimeout(() => {
+                        if (item.href === "#") {
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        } else {
+                          const el = document.querySelector(item.href);
+                          if (el) {
+                            const y = el.getBoundingClientRect().top + window.scrollY - 80;
+                            window.scrollTo({ top: y, behavior: "smooth" });
+                          }
+                        }
+                      }, 50);
+                    }}
+                  >
+                    {item.label}
+                    <ChevronRight className="w-5 h-5 text-white/20 group-active:text-red-500" />
+                  </a>
+                </motion.div>
               ))}
             </div>
 
