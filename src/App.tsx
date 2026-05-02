@@ -55,118 +55,81 @@ const Navigation = () => {
     return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
-  const handleToggle = (e: React.MouseEvent | React.TouchEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsOpen((prev) => !prev);
-  };
-
-  const handleNavClick = (e: React.MouseEvent | React.TouchEvent, href: string) => {
-    e.stopPropagation();
-    setIsOpen(false);
-    // Smooth scroll to section
-    if (href !== "#") {
-      const el = document.querySelector(href);
-      if (el) {
-        setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 100);
-      }
-    } else {
-      setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 100);
-    }
-  };
-
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-black/60 backdrop-blur-lg border-b border-white/5 py-2" : "bg-gradient-to-b from-black/60 to-transparent py-4"}`}>
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="font-serif font-black tracking-tighter text-2xl drop-shadow-2xl">
-            <span className="text-[#FFFDD0]">AZZAHRA</span> <span className="text-red-500 italic">CELEBES</span>
-          </span>
-        </div>
+    <>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || isOpen ? "bg-black/90 backdrop-blur-lg border-b border-white/10 py-3" : "bg-gradient-to-b from-black/80 to-transparent py-5"}`}>
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="font-serif font-black tracking-tighter text-2xl drop-shadow-2xl z-50 relative">
+              <span className="text-[#FFFDD0]">AZZAHRA</span> <span className="text-red-500 italic">CELEBES</span>
+            </span>
+          </div>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {[
-            { label: "Home", href: "#" },
-            { label: "Our Products", href: "#products" },
-            { label: "Projects", href: "#projects" },
-            { label: "Reward", href: "#partners" },
-            { label: "Get In Touch", href: "#contact" }
-          ].map((item) => (
-            <a 
-              key={item.label} 
-              href={item.href} 
-              className="text-[12px] font-black uppercase tracking-[0.2em] text-white hover:text-red-500 transition-all duration-300"
-            >
-              {item.label}
-            </a>
-          ))}
-        </div>
-
-        {/* Mobile Toggle Button - iOS-safe */}
-        <button 
-          type="button"
-          className="md:hidden flex items-center justify-center w-12 h-12 text-white rounded-xl cursor-pointer select-none"
-          onTouchEnd={handleToggle}
-          onClick={handleToggle}
-          style={{ 
-            WebkitTapHighlightColor: 'transparent', 
-            touchAction: 'manipulation',
-            WebkitUserSelect: 'none',
-            userSelect: 'none'
-          }}
-          aria-label={isOpen ? "Tutup menu" : "Buka menu"}
-          aria-expanded={isOpen}
-        >
-          <AnimatePresence mode="wait" initial={false}>
-            {isOpen ? (
-              <motion.span
-                key="close"
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-                transition={{ duration: 0.15 }}
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-8">
+            {[
+              { label: "Home", href: "#" },
+              { label: "Our Products", href: "#products" },
+              { label: "Projects", href: "#projects" },
+              { label: "Reward", href: "#partners" },
+              { label: "Get In Touch", href: "#contact" }
+            ].map((item) => (
+              <a 
+                key={item.label} 
+                href={item.href} 
+                className="text-[12px] font-black uppercase tracking-[0.2em] text-white hover:text-red-500 transition-all duration-300"
               >
-                <X className="w-6 h-6" />
-              </motion.span>
-            ) : (
-              <motion.span
-                key="open"
-                initial={{ rotate: 90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: -90, opacity: 0 }}
-                transition={{ duration: 0.15 }}
-              >
-                <Menu className="w-6 h-6" />
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </button>
-      </div>
+                {item.label}
+              </a>
+            ))}
+          </div>
 
-      {/* Mobile Menu - Full overlay for iOS */}
+          {/* Mobile Toggle Button */}
+          <button 
+            type="button"
+            className="md:hidden relative z-50 flex items-center justify-center w-12 h-12 text-white rounded-xl active:bg-white/10 transition-colors"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "Tutup menu" : "Buka menu"}
+            aria-expanded={isOpen}
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              {isOpen ? (
+                <motion.span
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <X className="w-8 h-8 text-red-500" />
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="open"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <Menu className="w-7 h-7" />
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </button>
+        </div>
+      </nav>
+
+      {/* Full Screen Mobile Menu Overlay */}
       <AnimatePresence>
         {isOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              key="backdrop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="md:hidden fixed inset-0 top-[72px] bg-black/60 backdrop-blur-sm z-40"
-              onClick={() => setIsOpen(false)}
-            />
-            {/* Menu Panel */}
-            <motion.div 
-              key="menu"
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              className="md:hidden absolute top-full left-0 right-0 z-50 border-b border-white/10 px-6 py-6 flex flex-col shadow-2xl"
-              style={{ backgroundColor: 'rgb(10, 28, 14)' }}
-            >
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden fixed inset-0 z-40 bg-[#0a110d] flex flex-col pt-28 px-6 pb-8 overflow-y-auto"
+          >
+            <div className="flex flex-col gap-2">
               {[
                 { label: "Home", href: "#" },
                 { label: "Our Products", href: "#products" },
@@ -177,41 +140,40 @@ const Navigation = () => {
                 <motion.a 
                   key={item.label} 
                   href={item.href} 
-                  initial={{ opacity: 0, x: -16 }}
+                  initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.06, duration: 0.2 }}
-                  className="text-xl font-black text-[#FFFDD0] active:text-red-400 transition-colors py-4 border-b border-white/10 last:border-0 flex items-center gap-3"
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  onTouchEnd={(e) => handleNavClick(e, item.href)}
-                  style={{ 
-                    WebkitTapHighlightColor: 'transparent', 
-                    touchAction: 'manipulation'
-                  }}
+                  transition={{ delay: idx * 0.05 + 0.1 }}
+                  className="text-2xl font-black text-[#FFFDD0] active:text-red-500 transition-colors py-4 border-b border-white/5 flex items-center justify-between group"
+                  onClick={() => setIsOpen(false)}
                 >
-                  <span className="text-red-500 text-sm font-black">0{idx + 1}</span>
                   {item.label}
+                  <ChevronRight className="w-5 h-5 text-white/20 group-active:text-red-500" />
                 </motion.a>
               ))}
+            </div>
 
-              {/* CTA in mobile menu */}
-              <motion.a
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35 }}
+            {/* CTA in mobile menu */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="mt-auto pt-8"
+            >
+              <a
                 href="https://wa.me/6287841780609?text=Halo%20Azzahra%20Celebes,%20saya%20ingin%20konsultasi."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 w-full bg-red-600 text-white text-center py-4 rounded-2xl font-black text-sm uppercase tracking-widest"
+                className="flex items-center justify-center gap-2 w-full bg-red-600 active:bg-red-700 text-white py-5 rounded-2xl font-black text-sm uppercase tracking-widest transition-colors shadow-xl shadow-red-900/20"
                 onClick={() => setIsOpen(false)}
-                style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
               >
+                <Phone className="w-4 h-4" />
                 Konsultasi Sekarang
-              </motion.a>
+              </a>
             </motion.div>
-          </>
+          </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 };
 
