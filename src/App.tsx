@@ -55,10 +55,10 @@ const Navigation = () => {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || isOpen ? "bg-black/90 backdrop-blur-lg border-b border-white/10 py-3" : "bg-gradient-to-b from-black/80 to-transparent py-5"}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 ${isScrolled || isOpen ? "bg-black backdrop-blur-xl border-b border-white/10 py-3" : "bg-gradient-to-b from-black/80 to-transparent py-5"}`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="font-serif font-black tracking-tighter text-2xl drop-shadow-2xl z-50 relative">
+            <span className="font-serif font-black tracking-tighter text-2xl drop-shadow-2xl relative">
               <span className="text-[#FFFDD0]">AZZAHRA</span> <span className="text-red-500 italic">CELEBES</span>
             </span>
           </div>
@@ -90,7 +90,7 @@ const Navigation = () => {
           {/* Mobile Toggle Button */}
           <button 
             type="button"
-            className="md:hidden relative z-50 flex items-center justify-center w-12 h-12 text-white rounded-xl active:bg-white/10 transition-colors cursor-pointer select-none"
+            className="md:hidden relative z-[9999] flex items-center justify-center gap-2 px-3 py-2 text-white rounded-xl active:bg-white/10 transition-all cursor-pointer select-none border border-white/5 bg-white/5"
             onClick={(e) => {
               e.preventDefault();
               setIsOpen(!isOpen);
@@ -101,13 +101,12 @@ const Navigation = () => {
             }}
             style={{ 
               WebkitTapHighlightColor: 'transparent', 
-              touchAction: 'manipulation',
-              WebkitUserSelect: 'none',
-              userSelect: 'none'
+              touchAction: 'manipulation'
             }}
             aria-label={isOpen ? "Tutup menu" : "Buka menu"}
             aria-expanded={isOpen}
           >
+            <span className="text-[10px] font-black uppercase tracking-widest text-white/50">{isOpen ? 'CLOSE' : 'MENU'}</span>
             <AnimatePresence mode="wait" initial={false}>
               {isOpen ? (
                 <motion.span
@@ -117,7 +116,7 @@ const Navigation = () => {
                   exit={{ rotate: 90, opacity: 0 }}
                   transition={{ duration: 0.15 }}
                 >
-                  <X className="w-8 h-8 text-red-500" />
+                  <X className="w-6 h-6 text-red-500" />
                 </motion.span>
               ) : (
                 <motion.span
@@ -127,7 +126,7 @@ const Navigation = () => {
                   exit={{ rotate: -90, opacity: 0 }}
                   transition={{ duration: 0.15 }}
                 >
-                  <Menu className="w-7 h-7" />
+                  <Menu className="w-6 h-6 text-red-500" />
                 </motion.span>
               )}
             </AnimatePresence>
@@ -143,11 +142,15 @@ const Navigation = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="md:hidden fixed inset-0 z-40 bg-[#050a07] flex flex-col pt-24 px-6 pb-8 overflow-y-auto"
+            className="md:hidden fixed inset-0 z-[9998] bg-black flex flex-col pt-24 px-6 pb-8 overflow-y-auto"
           >
             {/* Header for visual confirmation of update */}
-            <div className="mb-8 border-b border-white/5 pb-4">
-              <p className="text-[10px] font-black uppercase tracking-[0.4em] text-red-500">Navigation Menu</p>
+            <div className="mb-8 border-b border-white/10 pb-4 flex justify-between items-end">
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.4em] text-red-500">Navigation Menu</p>
+                <p className="text-[8px] font-bold text-white/20 mt-1 uppercase">Version 2.1 - Build Stable</p>
+              </div>
+              <div className="text-[8px] font-black text-white/10 uppercase tracking-tighter">AZZAHRA CELEBES PROJ.</div>
             </div>
 
             <div className="flex flex-col gap-1">
@@ -181,10 +184,9 @@ const Navigation = () => {
                             window.scrollTo({ top: y, behavior: "smooth" });
                           }
                         }
-                      }, 300); // 300ms delay to ensure menu unmounts first
+                      }, 350); 
                     }}
                     onTouchStart={(e) => {
-                      // Visual feedback on touch
                       e.currentTarget.style.color = "#ef4444";
                     }}
                     onTouchEnd={(e) => {
